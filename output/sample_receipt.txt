@@ -1,0 +1,1 @@
+RECEIPT Store Name: Tech Solutions Store Address: 789 Retail Blvd, Miami, FL 33101 Date: March 10, 2024 Time: 14:30 Transaction ID: TXN-789456 ITEMS PURCHASED: Laptop Computer - $899.99 Wireless Mouse - $29.99 USB Cable - $12.99 Software Package - $149.99 SUBTOTAL: $1,092.96 Sales Tax (7%): $76.51 TOTAL PAID: $1,169.47 Payment Method: Credit Card Thank you for shopping with us!

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Results - Document Processing System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .result-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        .success {
+            border-left: 5px solid #28a745;
+            background-color: #f8fff9;
+        }
+        .error {
+            border-left: 5px solid #dc3545;
+            background-color: #fff8f8;
+        }
+        .filename {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .document-type {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .confidence {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 5px;
+            font-size: 14px;
+        }
+        .processing-time {
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 5px;
+            font-size: 14px;
+        }
+        .entities {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .entity-item {
+            margin: 8px 0;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .entity-key {
+            font-weight: bold;
+            color: #495057;
+        }
+        .entity-value {
+            color: #007bff;
+            margin-left: 10px;
+        }
+        .error-message {
+            color: #dc3545;
+            font-style: italic;
+        }
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .back-button:hover {
+            background-color: #545b62;
+        }
+        .summary {
+            background-color: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .json-view {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Processing Results</h1>
+        
+        <div class="summary">
+            <h3>📈 Summary</h3>
+            <p><strong>Total Files:</strong> {{ results|length }}</p>
+            <p><strong>Successful:</strong> {{ results|selectattr("success")|list|length }}</p>
+            <p><strong>Failed:</strong> {{ results|rejectattr("success")|list|length }}</p>
+        </div>
+
+        {% for result in results %}
+        <div class="result-card {% if result.success %}success{% else %}error{% endif %}">
+            <div class="filename">
+                {% if result.success %}✅{% else %}❌{% endif %} {{ result.filename }}
+            </div>
+            
+            {% if result.success %}
+                <div>
+                    <span class="document-type">{{ result.data.document_type|title }}</span>
+                    <span class="confidence">Confidence: {{ "%.1f"|format(result.data.confidence * 100) }}%</span>
+                    <span class="processing-time">{{ result.data.processing_time }}</span>
+                </div>
+                
+                <div class="entities">
+                    <h4>🔍 Extracted Entities:</h4>
+                    {% if result.data.entities %}
+                        {% for key, value in result.data.entities.items() %}
+                            {% if value %}
+                            <div class="entity-item">
+                                <span class="entity-key">{{ key|replace("_", " ")|title }}:</span>
+                                <span class="entity-value">{{ value }}</span>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p><em>No entities extracted</em></p>
+                    {% endif %}
+                </div>
+                
+                <details>
+                    <summary>📄 Raw JSON Response</summary>
+                    <div class="json-view">{{ result.data|tojson(indent=2) }}</div>
+                </details>
+            {% else %}
+                <div class="error-message">
+                    <strong>Error:</strong> {{ result.error }}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <a href="/" class="back-button">🔄 Process More Documents</a>
+    </div>
+</body>
+</html>

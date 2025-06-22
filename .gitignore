@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.log
+*.tmp
+temp/
+.env
+.env.local
+
+# Vector databases (large files)
+*/faiss_index.bin
+*/metadata.pkl
+quick_demo_db/
+fresh_demo_db/
+
+# Test outputs
+test_*/
+output/*/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.tiff
+*.bmp
+
+# API keys and secrets
+config_local.py
+secrets.json

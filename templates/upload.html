@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Processing System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            background-color: #fafafa;
+        }
+        .upload-area:hover {
+            border-color: #007bff;
+            background-color: #f0f8ff;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .info {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .supported-formats {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Document Processing System</h1>
+        
+        <div class="info">
+            <h3>🚀 Features:</h3>
+            <ul>
+                <li><strong>OCR Processing</strong>: Extract text from images and PDFs</li>
+                <li><strong>Document Classification</strong>: Identify document types (Invoice, Receipt, Contract, etc.)</li>
+                <li><strong>Entity Extraction</strong>: Extract structured data based on document type</li>
+                <li><strong>Batch Processing</strong>: Upload multiple files at once</li>
+            </ul>
+        </div>
+
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <div class="upload-area">
+                <h3>📁 Select Documents to Process</h3>
+                <input type="file" name="files" id="fileInput" multiple accept=".pdf,.png,.jpg,.jpeg,.tiff,.bmp">
+                <div class="supported-formats">
+                    <strong>Supported formats:</strong> PDF, PNG, JPG, JPEG, TIFF, BMP
+                </div>
+            </div>
+            
+            <button type="submit">🔄 Process Documents</button>
+        </form>
+
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>Processing documents... Please wait.</p>
+        </div>
+
+        <div class="info">
+            <h3>📊 How it works:</h3>
+            <ol>
+                <li><strong>Upload</strong>: Select one or more documents</li>
+                <li><strong>OCR</strong>: Text is extracted using Tesseract/EasyOCR</li>
+                <li><strong>Classification</strong>: Document type is identified using vector similarity</li>
+                <li><strong>Extraction</strong>: Relevant entities are extracted based on document type</li>
+                <li><strong>Results</strong>: Structured JSON data is returned</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            document.getElementById('loading').style.display = 'block';
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const files = this.files;
+            if (files.length > 0) {
+                const fileList = Array.from(files).map(f => f.name).join(', ');
+                console.log('Selected files:', fileList);
+            }
+        });
+    </script>
+</body>
+</html>
