@@ -91,10 +91,24 @@ python run_all_tests.py
 
 ### Environment Variables (Optional)
 
-```bash
-# For enhanced entity extraction
-export OPENAI_API_KEY="your-api-key-here"
-```
+**For enhanced entity extraction with OpenAI:**
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and add your OpenAI API key:
+   ```bash
+   OPENAI_API_KEY=your-actual-api-key-here
+   ```
+
+3. Or set environment variable directly:
+   ```bash
+   export OPENAI_API_KEY="your-api-key-here"
+   ```
+
+**Note:** The system works without OpenAI API key using local regex-based extraction.
 
 ### System Paths
 

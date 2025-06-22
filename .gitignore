@@ -1,30 +1,24 @@
+# Environment variables
+.env
+.env.local
+.env.production
+
+# API Keys and credentials
+*.key
+*.pem
+config/secrets.json
+
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
-venv/
 env/
-ENV/
+venv/
 .venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
 # IDE
 .vscode/
@@ -36,29 +30,34 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Project specific
+# Logs
 *.log
-*.tmp
+logs/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
 temp/
-.env
-.env.local
+tmp/
+*.tmp
 
-# Vector databases (large files)
-*/faiss_index.bin
-*/metadata.pkl
-quick_demo_db/
-fresh_demo_db/
+# Output and cache
+output/
+cache/
+.cache/
 
-# Test outputs
-test_*/
-output/*/
-*.png
-*.jpg
-*.jpeg
-*.pdf
-*.tiff
-*.bmp
+# Vector database files
+*.faiss
+*.index
 
-# API keys and secrets
-config_local.py
-secrets.json
+# Test coverage
+.coverage
+htmlcov/
+
+# Distribution
+build/
+dist/
+*.egg-info/
