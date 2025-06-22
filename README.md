@@ -457,7 +457,7 @@ files: [invoice1.pdf, receipt1.jpg, contract1.pdf]
 
 ## License
 
-MIT License - see LICENSE file for details.
+RCSAS License - see LICENSE file for details.
 
 ## Contributing
 
